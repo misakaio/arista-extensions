@@ -114,7 +114,7 @@ Then return to the CLI and load the SWIX and set it to run on boot
 
 ~~~~
 exit
-copy file:/mnt/sdb1/downloads/bird/bird-1.6.0-1.swix extension:
+copy file:/mnt/sdb1/bird/bird-1.6.0-1.swix extension:
 extension bird-1.6.0-1.swix
 copy installed-extensions boot-extensions
 ~~~~
