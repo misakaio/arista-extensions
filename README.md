@@ -8,6 +8,14 @@ Arista provides a good BGP daemon, but Bird can offer significantly more flexibi
 | --- | --- |
 | 4.13.14M | [bird-1.6.0-1.i386.swix](swix/bird-1.6.0-1.swix) |
 
+## Configuration
+
+After installation, the main `bird.conf` can be found in
+
+    /mnt/flash/bird/bird.conf
+
+This will persist over reboots, and the service is automatically monitored for startup/crashes etc. by the main EOC monitoring dameon.
+
 ## Self Compile
 
 ### Initial preparation
@@ -83,14 +91,14 @@ rpmdev-setuptree
 cd /root/rpmbuild
 wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.spec
 wget --no-check-certificate -O SOURCES/bird.init https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.init
-rpmbuild -v -bb --clean SPECS/bird.spec
+rpmbuild --target=i686 -v -bb --clean SPECS/bird.spec
 ~~~~
 
 Then make the bird RPM/SWIX
 
 ~~~~
 mkdir -p /mnt/sdb1/bird
-cp /root/rpmbuild/RPMS/x86_64/bird*.rpm /mnt/sdb1/bird
+cp /root/rpmbuild/RPMS/i686/bird*.rpm /mnt/sdb1/bird
 ~~~~
 
 Create the manifest file
