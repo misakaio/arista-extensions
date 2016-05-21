@@ -19,16 +19,20 @@ protocols BGP, RIP and OSPF.
 %setup -n bird-%{version}
 
 %build
-autoconf
-./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-ipv6
-make
-mv bird bird6
-mv birdc birdc6
+if [ ! -f bird6 ] || [ ! -f birdc6 ]; then
+    autoconf
+    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-ipv6
+    make
+    mv bird bird6
+    mv birdc birdc6
+fi
 
-make clean
-autoconf
-./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
-make
+if [ ! -f bird ] || [ ! -f birdc ] || [ ! -f birdcl ] || [ ! -f bird.conf ]; then
+    make clean
+    autoconf
+    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+    make
+fi
 
 
 %install
@@ -48,7 +52,7 @@ install -d $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
 
 install $RPM_BUILD_DIR/bird-%{version}/misc/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
 install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird
-install $RPM_SOURCE_DIR/arista-bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
+install $RPM_SOURCE_DIR/bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
 
 %post
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
