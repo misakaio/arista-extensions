@@ -6,7 +6,7 @@ Arista provides a good BGP daemon, but Bird can offer significantly more flexibi
 
 | Version | Download Link |
 | --- | --- |
-| 4.13.14M | [bird-1.6.0-1.i386.swix](swix/) |
+| 4.13.14M | [bird-1.6.0-1.i386.swix](swix/bird-1.6.0-1.swix) |
 
 ## Self Compile
 
@@ -90,7 +90,7 @@ Then make the bird RPM/SWIX
 
 ~~~~
 mkdir -p /mnt/sdb1/bird
-cp /root/rpmbuild/RPMS/i386/bird*i386.rpm /mnt/sdb1/bird
+cp /root/rpmbuild/RPMS/x86_64/bird*.rpm /mnt/sdb1/bird
 ~~~~
 
 Create the manifest file
