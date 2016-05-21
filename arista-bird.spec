@@ -5,7 +5,7 @@ Release: 1
 License: GPL
 Group: Networking/Daemons
 Source: https://github.com/BIRD/bird/archive/v%{version}.tar.gz
-Source1: birdc6
+Source1: https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.init
 Buildroot: /var/tmp/bird-root
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
@@ -36,22 +36,30 @@ rm -rf $RPM_BUILD_ROOT/*
 
 make install prefix=$RPM_BUILD_ROOT/usr sysconfdir=$RPM_BUILD_ROOT/etc localstatedir=$RPM_BUILD_ROOT/var
 
+rm $RPM_BUILD_ROOT/etc/bird.conf
+
 install birdc6 $RPM_BUILD_ROOT/usr/sbin
 install bird6 $RPM_BUILD_ROOT/usr/sbin
 install birdcl $RPM_BUILD_ROOT/usr/sbin
+
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/mnt/flash/bird
+install -d $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
+
 install $RPM_BUILD_DIR/bird-%{version}/misc/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
 install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird
+install $RPM_SOURCE_DIR/arista-bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
 
 %post
-/sbin/ldconfig
-/sbin/chkconfig --add bird
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
+ldconfig
+chkconfig --add bird
+chkagent --add Bird
+service ProcMgr reload
 
 %preun
 if [ $1 = 0 ] ; then
-        /sbin/chkconfig --del bird
+    /sbin/chkconfig --del bird
 fi
 
 %files
@@ -61,5 +69,5 @@ fi
 %attr(755,root,root) /usr/sbin/birdc6
 %attr(755,root,root) /usr/sbin/birdcl
 %attr(755,root,root) /etc/rc.d/init.d/bird
-%attr(644,admin,admin) /mnt/flash/bird/bird.conf
-%attr(644,admin,admin) /etc/bird.conf
+%attr(755,root,root) /etc/ProcMgr.d/inst/Bird
+%attr(664,root,eosadmin) /mnt/flash/bird/bird.conf

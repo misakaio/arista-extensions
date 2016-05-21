@@ -1,10 +1,12 @@
+# arista-bird
+
 Arista provides a good BGP daemon, but Bird can offer significantly more flexibility. This repo contains a pre-compiled SWIX and instructions to make your own.
 
 ## Download
 
 | Version | Download Link |
 | --- | --- |
-| 4.14.14 | [bird-1.6.0-1.i386.swix](swix/) |
+| 4.13.14M | [bird-1.6.0-1.i386.swix](swix/) |
 
 ## Self Compile
 
@@ -71,13 +73,16 @@ EOF
 echo diskspacecheck=0 >> /etc/yum.conf
 ~~~~
 
-Using the [spec file](https://raw.githubusercontent.com/choco-loo/arista-bird/master/rpm/bird.spec), create the RPM
+### Create the RPM and SWIX
+
+Using the [spec file](https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.spec), create the RPM
 
 ~~~~
 yum install rpmdevtools
 rpmdev-setuptree
 cd /root/rpmbuild
-wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/choco-loo/arista-bird/master/rpm/bird.spec
+wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.spec
+wget --no-check-certificate -O SOURCES/bird.init https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.init
 rpmbuild -v -bb --clean SPECS/bird.spec
 ~~~~
 
