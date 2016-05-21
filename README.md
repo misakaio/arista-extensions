@@ -2,9 +2,9 @@ Arista provides a good BGP daemon, but Bird can offer significantly more flexibi
 
 ## Download
 
-|Version|Download Link|
-|-|-|
-|4.14.14|[bird-1.6.0-1.i386.swix](swix/)|
+| Version | Download Link |
+| --- | --- |
+| 4.14.14 | [bird-1.6.0-1.i386.swix](swix/) |
 
 ## Self Compile
 

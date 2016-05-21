@@ -47,8 +47,6 @@ install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird
 %post
 /sbin/ldconfig
 /sbin/chkconfig --add bird
-mkdir /mnt/flash/bird
-[ ! -f "/mnt/flash/bird/" ] && mv /etc/bird.conf /mnt/flash/bird/
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
 
 %preun
@@ -61,4 +59,7 @@ fi
 %attr(755,root,root) /usr/sbin/bird6
 %attr(755,root,root) /usr/sbin/birdc
 %attr(755,root,root) /usr/sbin/birdc6
+%attr(755,root,root) /usr/sbin/birdcl
 %attr(755,root,root) /etc/rc.d/init.d/bird
+%attr(644,admin,admin) /mnt/flash/bird/bird.conf
+%attr(644,admin,admin) /etc/bird.conf
