@@ -38,8 +38,11 @@ make install prefix=$RPM_BUILD_ROOT/usr sysconfdir=$RPM_BUILD_ROOT/etc localstat
 
 install birdc6 $RPM_BUILD_ROOT/usr/sbin
 install bird6 $RPM_BUILD_ROOT/usr/sbin
+install birdcl $RPM_BUILD_ROOT/usr/sbin
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT/mnt/flash/bird
 install $RPM_BUILD_DIR/bird-%{version}/misc/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
+install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird
 
 %post
 /sbin/ldconfig
