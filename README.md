@@ -6,8 +6,8 @@ This repository contains pre-built extensions for Arista EOS - and within each r
 
 | Version | Download Link | Project Link |
 | --- | --- | --- |
-| 4.13.14M | [bird-1.6.0-1.i686.swix](swix/bird-1.6.0-1.swix) | [Bird](/choco-loo/arista-extensions/tree/master/bird) |
-| 4.13.14M | [git-1.7.4.4-1.i686.swix](swix/git-1.7.4.4-1.swix) | [Git](/choco-loo/arista-extensions/tree/master/git) |
+| 4.13.14M | [bird-1.6.0-1.i686.swix](swix/bird-1.6.0-1.swix) | [Bird](bird/README.md) |
+| 4.13.14M | [git-1.7.4.4-1.i686.swix](swix/git-1.7.4.4-1.swix) | [Git](git/README.md) |
 
 ## Self Compile
 
