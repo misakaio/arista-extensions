@@ -51,11 +51,13 @@ install -d $RPM_BUILD_ROOT/mnt/flash/bird
 install -d $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
 
 install $RPM_BUILD_DIR/bird-%{version}/misc/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
-install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird
+install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.dist
 install $RPM_SOURCE_DIR/bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
 
 %post
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
+sed -i -E 's>(.+route .+::/.+)>#\1>g' /mnt/flash/bird/bird.conf.dist
+[ ! -f /mnt/flash/bird/bird.conf ] && cp /mnt/flash/bird/bird.conf{.dist,}
 ldconfig
 chkconfig --add bird
 chkagent --add Bird
@@ -74,4 +76,4 @@ fi
 %attr(755,root,root) /usr/sbin/birdcl
 %attr(755,root,root) /etc/rc.d/init.d/bird
 %attr(755,root,root) /etc/ProcMgr.d/inst/Bird
-%attr(664,root,eosadmin) /mnt/flash/bird/bird.conf
+%attr(664,root,eosadmin) /mnt/flash/bird/bird.conf.dist

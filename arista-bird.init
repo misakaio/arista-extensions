@@ -4,3 +4,4 @@ exe = /usr/sbin/bird
 argv =
 # Disable heartbeat monitoring
 heartbeatPeriod = 0
+startupGracePeriod = 5
