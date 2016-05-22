@@ -1,7 +1,7 @@
 # Process Manager config file for BIRD
 [BIRD]
 exe = /usr/sbin/bird
-argv =
+argv = -d
 # Disable heartbeat monitoring
 heartbeatPeriod = 0
 startupGracePeriod = 5

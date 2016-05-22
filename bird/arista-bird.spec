@@ -6,6 +6,7 @@ License: GPL
 Group: Networking/Daemons
 Source: https://github.com/BIRD/bird/archive/v%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/arista-bird.init
+Source2: https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/etc_bird.conf
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
 BuildRequires: readline-devel ncurses-devel flex bison autoconf gcc make
@@ -50,12 +51,11 @@ install -d $RPM_BUILD_ROOT/mnt/flash/bird
 install -d $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
 
 install $RPM_BUILD_DIR/bird-%{version}/misc/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
-install bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.dist
+install $RPM_SOURCE_DIR/etc_bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.dist
 install $RPM_SOURCE_DIR/bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
 
 %post
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
-sed -i -E 's>(.+route .+::/.+)>#\1>g' /mnt/flash/bird/bird.conf.dist
 [ ! -f /mnt/flash/bird/bird.conf ] && cp /mnt/flash/bird/bird.conf{.dist,}
 ldconfig
 chkconfig --add bird
