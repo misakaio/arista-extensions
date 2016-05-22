@@ -5,8 +5,7 @@ Release: 1
 License: GPL
 Group: Networking/Daemons
 Source: https://github.com/BIRD/bird/archive/v%{version}.tar.gz
-Source1: https://raw.githubusercontent.com/choco-loo/arista-bird/master/arista-bird.init
-Buildroot: /var/tmp/bird-root
+Source1: https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/arista-bird.init
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
 BuildRequires: readline-devel ncurses-devel flex bison autoconf gcc make
