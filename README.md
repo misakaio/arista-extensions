@@ -4,10 +4,10 @@ This repository contains pre-built extensions for Arista EOS - and within each r
 
 ## Download
 
-| Package | --- | --- |
+| Package | Download | Download |
 | --- | --- | --- |
-| [Bird](bird/README.md) | [4.13.14M](swix/bird-1.6.0-1_4.13.14M.swix) | [4.13.14M](swix/bird-1.6.0-1_4.13.10M.swix) |
-| [Git](git/README.md) | [4.13.14M](swix/git-1.7.4.4-1_4.13.14M.swix) | [4.13.14M](swix/git-1.7.4.4-1_4.13.10M.swix) |
+| [Bird](bird/README.md) | [4.13.14M](swix/bird-1.6.0-1_4.13.14M.swix) | [4.13.10M](swix/bird-1.6.0-1_4.13.10M.swix) |
+| [Git](git/README.md) | [4.13.14M](swix/git-1.7.4.4-1_4.13.14M.swix) | [4.13.10M](swix/git-1.7.4.4-1_4.13.10M.swix) |
 
 ## Self Compile
 
