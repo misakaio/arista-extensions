@@ -1,12 +1,12 @@
 Summary: BIRD Internet Routing Daemon
 Name: bird
-Version: 1.6.0
+Version: 1.6.6
 Release: 1
 License: GPL
 Group: Networking/Daemons
-Source: https://github.com/BIRD/bird/archive/v%{version}.tar.gz
-Source1: https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/arista-bird.init
-Source2: https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/etc_bird.conf
+Source: ftp://bird.network.cz/pub/bird/bird-%{version}.tar.gz
+Source1: https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.init
+Source2: https://raw.githubusercontent.com/ym/arista-extensions/master/bird/etc_bird.conf
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
 BuildRequires: readline-devel ncurses-devel flex bison autoconf gcc make

@@ -12,16 +12,16 @@ This will persist over reboots, and the service is automatically monitored for s
 
 ## Create the RPM and SWIX
 
-Using the [spec file](https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/arista-bird.spec), create the RPM
+Using the [spec file](https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.spec), create the RPM
 
 ~~~~
 yum install rpmdevtools readline-devel ncurses-devel flex bison autoconf gcc make
 rpmdev-setuptree
 cd /root/rpmbuild
-wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/arista-bird.spec
-wget --no-check-certificate -O SOURCES/bird.init https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/arista-bird.init
-wget --no-check-certificate -O SOURCES/etc_bird.conf https://raw.githubusercontent.com/choco-loo/arista-extensions/master/bird/etc_bird.conf
-wget --no-check-certificate -O SOURCES/v1.6.0.tar.gz https://github.com/BIRD/bird/archive/v1.6.0.tar.gz
+wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.spec
+wget --no-check-certificate -O SOURCES/bird.init https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.init
+wget --no-check-certificate -O SOURCES/etc_bird.conf https://raw.githubusercontent.com/ym/arista-extensions/master/bird/etc_bird.conf
+wget --no-check-certificate -O SOURCES/v1.6.6.tar.gz ftp://bird.network.cz/pub/bird/bird-1.6.6.tar.gz
 rpmbuild --target=i686 -v -bb --clean SPECS/bird.spec
 ~~~~
 
