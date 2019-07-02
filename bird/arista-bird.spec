@@ -50,9 +50,9 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/mnt/flash/bird
 install -d $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
 
-install $RPM_BUILD_DIR/bird-%{version}/misc/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
+install $RPM_SOURCE_DIR/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
 install $RPM_SOURCE_DIR/etc_bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.dist
-install $RPM_SOURCE_DIR/bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
+install $RPM_SOURCE_DIR/arista-bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
 
 %post
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf

@@ -19,9 +19,10 @@ yum install rpmdevtools readline-devel ncurses-devel flex bison autoconf gcc mak
 rpmdev-setuptree
 cd /root/rpmbuild
 wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.spec
-wget --no-check-certificate -O SOURCES/bird.init https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.init
+wget --no-check-certificate -O SOURCES/bird.init https://raw.githubusercontent.com/ym/arista-extensions/master/bird/bird.init
+wget --no-check-certificate -O SOURCES/arista-bird.init https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.init
 wget --no-check-certificate -O SOURCES/etc_bird.conf https://raw.githubusercontent.com/ym/arista-extensions/master/bird/etc_bird.conf
-wget --no-check-certificate -O SOURCES/v1.6.6.tar.gz ftp://bird.network.cz/pub/bird/bird-1.6.6.tar.gz
+wget --no-check-certificate -O SOURCES/bird-1.6.6.tar.gz ftp://bird.network.cz/pub/bird/bird-1.6.6.tar.gz
 rpmbuild --target=i686 -v -bb --clean SPECS/bird.spec
 ~~~~
 
