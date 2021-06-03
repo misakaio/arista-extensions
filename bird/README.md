@@ -4,9 +4,7 @@ Arista provides a good BGP daemon, but Bird can offer significantly more flexibi
 
 ## Configuration
 
-After installation, the main `bird.conf` can be found in
-
-    /mnt/flash/bird/bird.conf
+After installation, the main `bird.conf` can be found in `/mnt/flash/bird/bird.conf`
 
 This will persist over reboots, and the service is automatically monitored for startup/crashes etc. by the main EOC monitoring dameon.
 
@@ -14,8 +12,8 @@ This will persist over reboots, and the service is automatically monitored for s
 
 Using the [spec file](https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.spec), create the RPM
 
-~~~~
-yum install rpmdevtools readline-devel ncurses-devel flex bison autoconf gcc make
+```bash
+yum install rpmdevtools readline-devel ncurses-devel flex bison autoconf gcc make tar
 rpmdev-setuptree
 cd /root/rpmbuild
 wget --no-check-certificate -O SPECS/bird.spec https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.spec
@@ -24,18 +22,18 @@ wget --no-check-certificate -O SOURCES/arista-bird.init https://raw.githubuserco
 wget --no-check-certificate -O SOURCES/etc_bird.conf https://raw.githubusercontent.com/ym/arista-extensions/master/bird/etc_bird.conf
 wget --no-check-certificate -O SOURCES/bird-1.6.6.tar.gz ftp://bird.network.cz/pub/bird/bird-1.6.6.tar.gz
 rpmbuild --target=i686 -v -bb --clean SPECS/bird.spec
-~~~~
+```
 
 Then make the RPM/SWIX
 
-~~~~
+```bash
 mkdir -p /mnt/sdb1/bird
 cp /root/rpmbuild/RPMS/i686/bird*.rpm /mnt/sdb1/bird
-~~~~
+```
 
 Create the manifest file
 
-~~~~
+```bash
 cd /mnt/sdb1/bird
 cat > manifest.txt <<EOF
 format: 1
@@ -44,7 +42,7 @@ EOF
 for file in *.rpm; do
     echo $(ls "$file")-sha1: $(cat "$file" | sha1sum | cut -f 1 -d " ") >> manifest.txt
 done
-~~~~
+```
 
 Create the SWIX
 
@@ -52,9 +50,9 @@ Create the SWIX
 
 Then return to the CLI and load the SWIX and set it to run on boot
 
-~~~~
+```bash
 exit
 copy file:/mnt/sdb1/bird/bird-1.6.0-1.swix extension:
-extension bird-1.6.0-1.swix
+extension bird-1.6.6-1.swix
 copy installed-extensions boot-extensions
-~~~~
+```

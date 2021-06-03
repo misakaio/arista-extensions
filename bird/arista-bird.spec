@@ -1,6 +1,6 @@
 Summary: BIRD Internet Routing Daemon
 Name: bird
-Version: 1.6.6
+Version: 1.6.8
 Release: 1
 License: GPL
 Group: Networking/Daemons
@@ -10,6 +10,7 @@ Source2: https://raw.githubusercontent.com/ym/arista-extensions/master/bird/etc_
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
 BuildRequires: readline-devel ncurses-devel flex bison autoconf gcc make
+AutoReqProv: no
 
 %description
 BIRD is dynamic routing daemon supporting IPv4 and IPv6 versions of routing
@@ -55,8 +56,11 @@ install $RPM_SOURCE_DIR/etc_bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.d
 install $RPM_SOURCE_DIR/arista-bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
 
 %post
+ln -s /mnt/flash/bird /etc/bird
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
-[ ! -f /mnt/flash/bird/bird.conf ] && cp /mnt/flash/bird/bird.conf{.dist,}
+ln -s /mnt/flash/bird/bird6.conf /etc/bird6.conf
+[ ! -f /mnt/flash/bird/bird.conf ] && cp /mynt/flash/bird/bird.conf{.dist,}
+[ ! -f /mnt/flash/bird/bird6.conf ] && cp /mynt/flash/bird/bird6.conf{.dist,}
 ldconfig
 chkconfig --add bird
 chkagent --add Bird

@@ -11,8 +11,7 @@
 Partition the second disk to use for additional space,
 
 ~~~~
-bash sudo su
-fdisk /dev/sdb
+sudo -i
 mkfs.ext2 /dev/sdb1
 ~~~~
 
@@ -20,7 +19,7 @@ Mount the new partition and bind mount directories,
 
 ~~~~
 mkdir -p /mnt/sdb1
-mount /dev/sdb1 /mnt/sdb1
+mount /dev/sdb /mnt/sdb1
 mkdir -p /mnt/sdb1/{bin,var/cache/yum,usr}
 rsync -axpHSD --numeric-ids -vP --delete /var/cache/yum/ /mnt/sdb1/var/cache/yum/
 rsync -axpHSD --numeric-ids -vP --delete /usr/ /mnt/sdb1/usr/
@@ -38,9 +37,9 @@ cd /etc/yum.repos.d/
 
 cat > fedora.repo <<EOF
 [fedora]
-name=Fedora 14 - i686
+name=Fedora 18 - i686
 failovermethod=priority
-baseurl=http://dl.fedoraproject.org/pub/archive/fedora/linux/releases/14/Everything/i386/os/
+baseurl=http://dl.fedoraproject.org/pub/archive/fedora/linux/releases/18/Everything/i386/os/
 exclude=kernel,fedora-logos
 exclude=kernel,fedora-logos
 enabled=1
@@ -50,9 +49,9 @@ EOF
 
 cat > fedora-updates.repo <<EOF
 [fedora-updates]
-name=Fedora 14 Updates - i686
+name=Fedora 18 Updates - i686
 failovermethod=priority
-baseurl=http://dl.fedoraproject.org/pub/archive/fedora/linux/updates/14/i386/
+baseurl=http://dl.fedoraproject.org/pub/archive/fedora/linux/updates/18/i386/
 exclude=kernel,fedora-logos
 exclude=kernel,fedora-logos
 enabled=1
