@@ -5,8 +5,8 @@ Release: 1
 License: GPL
 Group: Networking/Daemons
 Source: ftp://bird.network.cz/pub/bird/bird-%{version}.tar.gz
-Source1: https://raw.githubusercontent.com/ym/arista-extensions/master/bird/arista-bird.init
-Source2: https://raw.githubusercontent.com/ym/arista-extensions/master/bird/etc_bird.conf
+Source1: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/bird.service
+Source2: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/etc_bird.conf
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
 BuildRequires: readline-devel ncurses-devel flex bison autoconf gcc make
@@ -47,28 +47,26 @@ install birdc6 $RPM_BUILD_ROOT/usr/sbin
 install bird6 $RPM_BUILD_ROOT/usr/sbin
 install birdcl $RPM_BUILD_ROOT/usr/sbin
 
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/mnt/flash/bird
-install -d $RPM_BUILD_ROOT/etc/ProcMgr.d/inst
+install -d $RPM_BUILD_ROOT/lib/systemd/system
 
-install $RPM_SOURCE_DIR/bird.init $RPM_BUILD_ROOT/etc/rc.d/init.d/bird
+install $RPM_SOURCE_DIR/bird.service $RPM_BUILD_ROOT/lib/systemd/system/bird.service
 install $RPM_SOURCE_DIR/etc_bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.dist
-install $RPM_SOURCE_DIR/arista-bird.init $RPM_BUILD_ROOT/etc/ProcMgr.d/inst/Bird
 
 %post
 ln -s /mnt/flash/bird /etc/bird
 ln -s /mnt/flash/bird/bird.conf /etc/bird.conf
 ln -s /mnt/flash/bird/bird6.conf /etc/bird6.conf
-[ ! -f /mnt/flash/bird/bird.conf ] && cp /mynt/flash/bird/bird.conf{.dist,}
-[ ! -f /mnt/flash/bird/bird6.conf ] && cp /mynt/flash/bird/bird6.conf{.dist,}
+[ ! -f /mnt/flash/bird/bird.conf ] && cp /mnt/flash/bird/bird.conf{.dist,}
+[ ! -f /mnt/flash/bird/bird6.conf ] && cp /mnt/flash/bird/bird6.conf{.dist,}
 ldconfig
-chkconfig --add bird
-chkagent --add Bird
-service ProcMgr reload
+systemctl enable bird
+systemctl start bird
 
 %preun
 if [ $1 = 0 ] ; then
-    /sbin/chkconfig --del bird
+    systemctl stop bird
+    systemctl disable bird
 fi
 
 %files
@@ -77,6 +75,5 @@ fi
 %attr(755,root,root) /usr/sbin/birdc
 %attr(755,root,root) /usr/sbin/birdc6
 %attr(755,root,root) /usr/sbin/birdcl
-%attr(755,root,root) /etc/rc.d/init.d/bird
-%attr(755,root,root) /etc/ProcMgr.d/inst/Bird
+%attr(755,root,root) /lib/systemd/system/bird.service
 %attr(664,root,eosadmin) /mnt/flash/bird/bird.conf.dist
