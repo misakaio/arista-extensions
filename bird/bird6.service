@@ -1,0 +1,11 @@
+[Unit]
+Description=BIRD Internet Routing Daemon (IPv6)
+
+[Service]
+ExecStartPre=/usr/sbin/bird6 -p
+ExecReload=/usr/sbin/birdc6 configure
+ExecStart=/usr/sbin/bird6 -f
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

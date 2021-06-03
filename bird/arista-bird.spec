@@ -6,7 +6,9 @@ License: GPL
 Group: Networking/Daemons
 Source: ftp://bird.network.cz/pub/bird/bird-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/bird.service
-Source2: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/etc_bird.conf
+Source2: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/bird6.service
+Source3: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/etc_bird.conf
+Source4: https://raw.githubusercontent.com/misakaio/arista-extensions/master/bird/etc_bird6.conf
 Url: http://bird.network.cz
 Requires: /sbin/chkconfig
 BuildRequires: readline-devel ncurses-devel flex bison autoconf gcc make
@@ -51,7 +53,9 @@ install -d $RPM_BUILD_ROOT/mnt/flash/bird
 install -d $RPM_BUILD_ROOT/lib/systemd/system
 
 install $RPM_SOURCE_DIR/bird.service $RPM_BUILD_ROOT/lib/systemd/system/bird.service
+install $RPM_SOURCE_DIR/bird6.service $RPM_BUILD_ROOT/lib/systemd/system/bird6.service
 install $RPM_SOURCE_DIR/etc_bird.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird.conf.dist
+install $RPM_SOURCE_DIR/etc_bird6.conf $RPM_BUILD_ROOT/mnt/flash/bird/bird6.conf.dist
 
 %post
 ln -s /mnt/flash/bird /etc/bird
@@ -60,13 +64,13 @@ ln -s /mnt/flash/bird/bird6.conf /etc/bird6.conf
 [ ! -f /mnt/flash/bird/bird.conf ] && cp /mnt/flash/bird/bird.conf{.dist,}
 [ ! -f /mnt/flash/bird/bird6.conf ] && cp /mnt/flash/bird/bird6.conf{.dist,}
 ldconfig
-systemctl enable bird
-systemctl start bird
+systemctl enable bird bird6
+systemctl start bird bird6
 
 %preun
 if [ $1 = 0 ] ; then
-    systemctl stop bird
-    systemctl disable bird
+    systemctl stop bird bird6
+    systemctl disable bird bird6
 fi
 
 %files
@@ -76,4 +80,6 @@ fi
 %attr(755,root,root) /usr/sbin/birdc6
 %attr(755,root,root) /usr/sbin/birdcl
 %attr(755,root,root) /lib/systemd/system/bird.service
+%attr(755,root,root) /lib/systemd/system/bird6.service
 %attr(664,root,eosadmin) /mnt/flash/bird/bird.conf.dist
+%attr(664,root,eosadmin) /mnt/flash/bird/bird6.conf.dist
